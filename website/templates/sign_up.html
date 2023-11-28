@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+{% block title %}Rejestracja{% endblock %} 
+{% block content %}
+<form method="POST">
+    <h3 align="center">Rejestracja</h3>
+    <div class="form-group">
+      <label for="email">Adres E-mail</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="Wprowadź email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="imie">Imie</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imie"
+        name="imie"
+        placeholder="Wprowadź imie"
+      />
+    </div>
+    <div class="form-group">
+        <label for="Nazwisko">Nazwisko</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Nazwisko"
+          name="Nazwisko"
+          placeholder="Wprowadź Nazwisko"
+        />
+      </div>
+    <div class="form-group">
+      <label for="haslo1">Hasło</label>
+      <input
+        type="password"
+        class="form-control"
+        id="haslo1"
+        name="haslo1"
+        placeholder="Wprowadź hasło"
+      />
+    </div>
+    <div class="form-group">
+      <label for="haslo2">Potwierdz hasło</label>
+      <input
+        type="password"
+        class="form-control"
+        id="haslo2"
+        name="haslo2"
+        placeholder="Wprowadź ponownie hasło"
+      />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Rejestracja</button>
+  </form>
+{% endblock %}
