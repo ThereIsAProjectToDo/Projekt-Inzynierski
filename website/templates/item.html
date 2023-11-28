@@ -22,8 +22,36 @@
         </div>
     </div>
 </div>
-<div class="row gx-1 gx-lg-1 align-items-center">
-    <div class="row-cols-md-3" >{{comments[1][1]}}</div>
-
+{%if comments%}
+<div class="col mb-5" style="text-align: center;margin-top: 50px;"><h1>Opinie</h1></div>
+{%endif%}
+{%for row in comments%}
+<!-- comments -->
+<br>
+<div class="col mb-5">
+    <div class="card h-100">
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h4 class="fw-bolder">{{row[2]}}    {{row[3]}}</h5>
+                <!-- Product price-->
+                <div class="d-flex justify-content-center small text-warning mb-2">
+                    {%for i in range(row[0])%}
+                    <div class="bi-star-fill" style="margin-left: 5px;"></div>
+                    {%endfor%}
+                </div>
+                
+                <br>
+                
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="text-center">
+        <h6>{{row[1]}}</h6>
+        </div>  
+        <br>
+    </div>
 </div>
+{%endfor%}
 {% endblock %}

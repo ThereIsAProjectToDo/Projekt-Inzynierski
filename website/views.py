@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template , request, redirect, url_for
+from flask import Blueprint, render_template , request, redirect, url_for , session
+from datetime import timedelta
 from flask_paginate import Pagination, get_page_parameter
 import psycopg2
-from psycopg2 import sql
 views = Blueprint('views', __name__)
 # db_params = {
 #     'dbname': 'postgres',
@@ -17,6 +17,8 @@ db_params = {
     'host': 'localhost',
     'port': '5432'
 }
+
+
 @views.route('/')
 def home():
     return render_template('base.html')
@@ -73,7 +75,6 @@ def item(item_info=None):
         print(e)
         return redirect(url_for('views.books'))
     
-
 
 @views.route('/about_us')
 def about_us():
