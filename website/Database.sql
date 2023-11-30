@@ -47,6 +47,11 @@ CREATE TABLE opinie(
     ocena INTEGER NOT NULL,
     ocena_tekst TEXT
 )
+CREATE TABLE koszyk(
+    ksiazka_id INTEGER REFERENCES ksiazki(ksiazka_id) ON DELETE CASCADE,
+    klient_id INTEGER REFERENCES klienci(klient_id) ON DELETE CASCADE,
+    ilosc INTEGER NOT NULL
+)
 
 
 RECORDS

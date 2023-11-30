@@ -17,13 +17,14 @@ db_params = {
     'host': 'localhost',
     'port': '5432'
 }
+# Shopping_list = list()
 
 
 @views.route('/')
 def home():
     return render_template('base.html')
 
-@views.route('/books')
+@views.route('/ksiazki')
 def books():
     page = request.args.get(get_page_parameter(), type=int, default=1)
     per_page = 16
@@ -52,30 +53,56 @@ def books():
     print(f"Page: {page}, Per Page: {per_page}, Offset: {offset}, total: {total_records}")
     return render_template('books.html', results=results, pagination=pagination)
 
-@views.route('/item')
+@views.route('/produkt',methods=['GET','POST'])
 def item(item_info=None):
+    # print(session["user"].get())
     item_info = request.args.get('item_info', None)
+    if item_info != None:
+        session["item"] = item_info
+        print("przypisano wartosc sesji")
+    book = session["item"]
+    print(f"tutaj wartosc sesji: {book}")
+    print(item_info)
+    if request.method == 'POST':
+        if "user" in session:
+            user_id = session["user"]
+            if book == None:
+                print("JAK TO KURWA JEST NONE")
+            else:
+                print("SUKCES")
+                with psycopg2.connect(**db_params) as connection:
+                    with connection.cursor() as cursor:
+                        query = "INSERT INTO koszyk (ksiazka_id, klient_id, ilosc) VALUES (%s,%s,1)"
+                        cursor.execute(query, (book,user_id))
+                        print("wykonuje querry")
+                        return redirect(url_for('views.books'))
+        else:
+            print("Routuje na user.login")
+            return redirect(url_for('user.login'))
     connection = psycopg2.connect(**db_params)
     cursor = connection.cursor()
     try:
         query = f"SELECT * FROM ksiazki WHERE ksiazka_id = {item_info}"
         cursor.execute(query,item_info)
         info = cursor.fetchall()
-        print(info)
 
         query1 = f"select op.ocena, op.ocena_tekst, kl.imie, kl.nazwisko FROM opinie AS op JOIN klienci AS kl ON op.klient_id = kl.klient_id JOIN ksiazki AS ks ON ks.ksiazka_id = op.ksiazka_id WHERE ks.ksiazka_id = {item_info} "
         cursor.execute(query1,item_info)
         comments= cursor.fetchall()
-        print(comments)
         cursor.close()
         connection.close()
 
-        return render_template('item.html',info=info,comments=comments)
+        return render_template('item.html',info=info,comments=comments,item_info=item_info)
     except Exception as e:
-        print(e)
         return redirect(url_for('views.books'))
     
 
-@views.route('/about_us')
+@views.route('/o_nas')
 def about_us():
     return render_template('about_us.html')
+
+
+
+
+def jakas_funkcja():
+    return None

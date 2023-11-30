@@ -14,10 +14,11 @@
             <p class="lead">{{info[0][3]}}</p>
             <div class="d-flex">
                 <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                    <i class="bi-cart-fill me-1"></i>
-                    Dodaj do koszyka
-                </button>
+                <form method="post" action="{{ url_for('views.item') }}">
+                    <input class="btn btn-outline-dark flex-shrink-0" type="submit" name="dodaj_do_koszyka" value="{{ item_info }}">
+                    <button type="submit">Submit</button>
+                    <!-- <input class="btn btn-outline-dark flex-shrink-0" type="submit" value="Dodaj do koszyka" name="dodaj_do_koszyka"> -->
+            </form>
             </div>
         </div>
     </div>
