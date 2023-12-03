@@ -2,37 +2,47 @@
 {% block title %}Profil użytkownika{% endblock %}
 {% block content %}
 
-<div class="container mt-4">
-    <div class="row">
-      <div class="col-md-8">
-        <h1>Twój Profil Użytkownika</h1>
-        
-        <!-- Formularz do zmiany danych użytkownika -->
-        <form action="/zmien_dane" method="post">
-          <div class="mb-3">
-            <label for="imie" class="form-label">Imię:</label>
-            <input type="text" class="form-control" id="imie" name="imie">
-          </div>
-          <div class="mb-3">
-            <label for="nazwisko" class="form-label">Nazwisko:</label>
-            <input type="text" class="form-control" id="nazwisko" name="nazwisko">
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">E-mail:</label>
-            <input type="email" class="form-control" id="email" name="email">
-          </div>
-          <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-        </form>
+<div class="container mt-5">
+  <div class="card">
+      <div class="card-header">
+          <h2>Informacje o Koncie</h2>
       </div>
-      <div class="col-md-4">
-        <!-- Tutaj możesz dodać dodatkowe informacje lub widgety dla panelu użytkownika -->
+      <div class="card-body">
+          <p class="card-text"><strong>Email: {{info[0][1]}}  </strong></p>
+          <p class="card-text"><strong>Status Konta:   {{info[0][4]}}</strong> </p>
+          <p class="card-text"><strong>Data Utworzenia:  {{info[0][3]}}</strong> </p>
+          <p class="card-text"><strong>Imię: {{info[0][7]}}</strong> </p>
+          <p class="card-text"><strong>Nazwisko: {{info[0][8]}}</strong> </p>
+          <p class="card-text"><strong>Telefon: {{info[0][9]}} </strong> </p>
+          <p class="card-text"><strong>Adres: {{info[0][10]}}</strong> </p>
       </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6"><div class="row"><div class="col-md-6">asdasdd</div><div class="col-md-6">asdasd</div></div></div>
-        <div class="col-md-6">asdasd</div>
-    </div>
   </div>
+</div>
+
+
+
+
+
+<div class="container mt-5">
+  <div class="card">
+      <div class="card-header">
+          <h2>Edycja Informacji o Koncie</h2>
+      </div>
+      <div class="card-body">
+          <form method="post">
+              <div class="form-group">
+                  <label for="username">Username:</label>
+                  <input type="text" id="username" name="username" value="" class="form-control" required>
+              </div>
+              <div class="form-group">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" value="" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+          </form>
+      </div>
+  </div>
+</div>
   
 
 

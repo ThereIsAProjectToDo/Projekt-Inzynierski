@@ -16,3 +16,32 @@
 <h5>Zapraszamy Was do wspólnej podróży przez świat literatury. Niech nasza księgarnia internetowa stanie się dla Was miejscem, gdzie odkryjecie nie tylko nowe książki, ale także nowych przyjaciół i inspiracje do kolejnych literackich podróży.</h5>
 
 {%endblock%}
+
+
+<br>
+<div class="col mb-5">
+    <div class="card h-100">
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <h2>Dodaj Komentarz</h2>
+                    <form>
+                        <div class="form-group">
+                        <label for="komentarz">Treść Komentarza:</label>
+                        <textarea class="form-control" id="komentarz" rows="4" placeholder="Wprowadź swój komentarz"></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label for="ocena">Ocena (od 1 do 5):</label>
+                        <input type="number" class="form-control" id="ocena" min="1" max="5" placeholder="Wprowadź ocenę">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Dodaj Komentarz</button>
+                    </form>
+            </div>
+        </div>
+        <!-- Product actions-->
+        <div class="text-center">
+        <h6>{{row[1]}}</h6>
+        </div>  
+        <br>
+    </div>
+</div>

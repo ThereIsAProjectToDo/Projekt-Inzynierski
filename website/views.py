@@ -67,7 +67,7 @@ def item(item_info=None):
         if "user" in session:
             user_id = session["user"]
             if book == None:
-                print("JAK TO KURWA JEST NONE")
+                print("JAK TO JEST NONE")
             else:
                 print("SUKCES")
                 with psycopg2.connect(**db_params) as connection:
@@ -94,6 +94,7 @@ def item(item_info=None):
 
         return render_template('item.html',info=info,comments=comments,item_info=item_info)
     except Exception as e:
+        print(e)
         return redirect(url_for('views.books'))
     
 
