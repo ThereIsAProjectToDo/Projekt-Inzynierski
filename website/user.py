@@ -83,7 +83,25 @@ def profil():
     with psycopg2.connect(**db_params) as connection:
                     with connection.cursor() as cursor:
                         query = "SELECT * FROM konta AS ko INNER JOIN klienci AS kl ON ko.konto_id = kl.konto_id WHERE kl.klient_id = %s"
-                        cursor.execute(query,(id))
+                        cursor.execute(query,(id,))
                         info = cursor.fetchall()
     print(info)
     return render_template('profile.html', info=info)
+
+
+@user.route('/dodaj_komentarz')
+def add_comment():
+    id_book = session['item']
+    id_user = session['user']
+    print(f"Tutaj sprawdzam wartosci: {id_book} + {id_user}")
+    data = request.form
+    if (id_book is not None) and (id_user is not None):
+        print("dziaa")
+        tekst = data.get("komentarz")
+        ocena = data.get("ocena")
+        with psycopg2.connect(**db_params) as connection:
+                with connection.cursor() as cursor:
+                    query = "INSERT INTO opinie(klient_id,ksiazka_id,ocena_tekst,ocena) VALUES (%s,%s,%s,%s)"
+                    cursor.execute(query,(id_user,id_book,tekst,ocena))
+    return redirect(url_for('views.item',item_info=id_book))
+
