@@ -31,11 +31,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Strona Główna</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/about_us">O nas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('views.about_us') }}">O nas</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sklep</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/books">Produkty</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('views.books') }}">Produkty</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#!">Bestsellery</a></li>
                                 <li><a class="dropdown-item" href="#!">Nowe</a></li>
@@ -44,24 +44,39 @@
                     </ul>
                     <form class="d-flex">
                         {%if session['user']%}
-                        <button class="btn btn-outline-dark">
+                        <a href="{{url_for('user.koszyk')}}">
+                        <div class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
                             Koszyk
                             <span class="badge bg-dark text-white ms-1 rounded-pill" type="submit" >0</span>
-                        </button>
+                        </div>
+                        </a>
+                        <a href="{{ url_for('user.profil')}}" style="text-decoration: None;color:black">
+                        <div class="btn btn-outline-dark"style="margin-left: 10px;">
+                            Profil
+                        </div>
+                        </a>
+                        <a href="{{ url_for('user.logout')}}" style="text-decoration: None;color:black">
+                        <div class="btn btn-outline-dark"style="margin-left: 10px;">
+                            Wyloguj
+                        </div>
+                        </a>
+                        
 
-                        
-                        
-                        <button class="btn btn-outline-dark" type="submit" style="margin-left: 10px;">
-                            <a href="/auth/logout" style="text-decoration: None;color:black">Wyloguj</a>
-                        </button>
+
+
+
                         {%else%}
-                        <button class="btn btn-outline-dark" type="submit" style="margin-left: 10px;">
-                            <a href="/auth/login" style="text-decoration: None;color:black">Logowanie</a>
-                        </button>
-                        <button class="btn btn-outline-dark" type="submit" style="margin-left: 10px;">
-                            <a href="/auth/sign_up" style="text-decoration: None;color:black">Rejestracja</a>
-                        </button>
+                        <a href="{{ url_for('user.login')}}" style="text-decoration: None;color:black">
+                        <div class="btn btn-outline-dark"style="margin-left: 10px;">
+                            Logowanie
+                        </div>
+                        </a>
+                        <a href="{{ url_for('user.sign_up')}}" style="text-decoration: None;color:black">
+                        <div class="btn btn-outline-dark"style="margin-left: 10px;">
+                            Rejestracja
+                        </div>
+                        </a>
                         {%endif%}
                         
                     </form>
@@ -79,15 +94,60 @@
         </header>
         <!-- Section-->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5"> 
+            <div class="container px-4 px-lg-5 mt-5" style="min-height: 800px;"> 
                 <!-- <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> -->
-                    {%block content%}{%endblock%}
+                    {%block content%}
+                    <div class="row">
+
+                        <!-- Duże zdjęcie po lewej stronie -->
+                        <div class="col-md-6">
+                            <img src="https://cdn.biznesfinder.pl/f-34429-jak-dziala-ksiegarnia-internetowa.jpg" style="max-width: 100%; max-height:100%;">
+                        </div>
+            
+                        <!-- Treść po prawej stronie -->
+                        <div class="col-md-6">
+                            <p>Szanowni Miłośnicy Piękna Literatury,
+
+                                Mamy przyjemność przedstawić Wam najnowszą perełkę literacką, której nie możecie przegapić! "Migoczące Marzenia" autorstwa utalentowanej pisarki Anna Nowak to podróż pełna emocji, wrażeń i inspiracji, która przeniesie Was do niezwykłego świata, gdzie każda strona kryje w sobie tajemnicę, a każde zdanie wciągnie Was głębiej w wir historii.
+                                
+                                Dlaczego warto zainwestować w tę wyjątkową książkę?
+                                
+                                Poruszająca Fabuła: "Migoczące Marzenia" to opowieść o miłości, determinacji i sile ludzkiego ducha. Anna Nowak mistrzowsko snuje wątki, łącząc je w pełną napięcia historię, która zatrzyma Wasze serce i jednocześnie wzbudzi fale emocji.
+                                
+                                Wyjątkowe Postaci: Autorka stworzyła niezapomniane postaci, które stają się bliskie czytelnikom. Ich rozwój, tajemnice i relacje poruszają tematy uniwersalne, sprawiając, że z łatwością odnajdziecie się w ich świecie.
+                                
+                                Mądra Sztuka Opowiadania: Anna Nowak nie tylko bawi się słowem, ale również posługuje się mądrością życiową, przemyśleniami i refleksjami, które sprawiają, że lektura nabiera głębszego znaczenia. To więcej niż zwykła książka - to intelektualna uczta.
+                                
+                                Piękne Wydanie: "Migoczące Marzenia" to nie tylko treść, ale również forma. Książka została wydana z najwyższą dbałością o detale, a jej okładka stanowi prawdziwe dzieło sztuki, które ozdobi Waszą biblioteczkę.
+                                
+                                Recenzje czytelników: Społeczność czytelników już teraz gorąco poleca tę książkę! Opinie pełne entuzjazmu potwierdzają, że "Migoczące Marzenia" to lektura, która zostaje w pamięci na długo po jej przeczytaniu.
+                                
+                                Zapraszamy Was do zakupu "Migoczących Marzeń" w naszej internetowej księgarni. To nie tylko inwestycja w fascynującą lekturę, ale także w chwilę relaksu, rozrywki i rozwijania swoich literackich zainteresowań.
+                                
+                                Nie czekajcie, odkryjcie nowy świat literatury razem z "Migoczącymi Marzeniami" już dziś!</p>
+                            <!-- Dodaj więcej treści lub sekcji po prawej stronie tutaj -->
+                        </div>
+            
+                    </div>
+                    <br><br><br><br><br>
+                    {%endblock%}
                 <!-- </div> -->
+                
             </div>
         </section>
+        
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white"></p></div>
+            <div class="container">
+                
+                
+                <p class="m-0 text-center text-white">&copy; 2023 Księgarnia Internetowa</p>
+                <p class="m-0 text-center text-white">Adres: ul. Przykładowa 123, 00-000 Warszawa</p>
+                <p class="m-0 text-center text-white">Telefon: (12) 345-678-90</p>
+                <p class="m-0 text-center text-white">Email: info@ksiegarniainternetowa.pl</p>
+            
+            
+            </div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

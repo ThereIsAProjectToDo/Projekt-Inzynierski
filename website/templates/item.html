@@ -14,10 +14,10 @@
             <p class="lead">{{info[0][3]}}</p>
             <div class="d-flex">
                 <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                    <i class="bi-cart-fill me-1"></i>
-                    Dodaj do koszyka
-                </button>
+                <form method="post" action="{{ url_for('views.item') }}">
+                    <input class="btn btn-outline-dark flex-shrink-0" type="submit" name="dodaj_do_koszyka" value="Dodaj do koszyka">
+                    <!-- <input class="btn btn-outline-dark flex-shrink-0" type="submit" value="Dodaj do koszyka" name="dodaj_do_koszyka"> -->
+            </form>
             </div>
         </div>
     </div>
@@ -54,4 +54,28 @@
     </div>
 </div>
 {%endfor%}
+{%if session['user']%}
+<br>
+<div class="col mb-5">
+    <div class="card h-100">
+        <!-- Product details-->
+        <div class="card-body p-4">
+            <div class="text-center">
+                <h2>Dodaj Komentarz</h2>
+                    <form>
+                        <div class="form-group">
+                        <label for="komentarz">Treść Komentarza:</label>
+                        <textarea class="form-control" id="komentarz" rows="4" placeholder="Wprowadź swój komentarz"></textarea>
+                        </div>
+                        <div class="form-group">
+                        <label for="ocena">Ocena (od 1 do 5):</label>
+                        <input type="number" class="form-control" id="ocena" min="1" max="5" placeholder="Wprowadź ocenę">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Dodaj Komentarz</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
 {% endblock %}

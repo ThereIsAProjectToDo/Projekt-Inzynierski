@@ -4,9 +4,9 @@ def create_app():
     app.config['SECRET_KEY'] = 'secretkey'
 
     from .views import views
-    from .auth import auth
+    from .user import user
 
     app.register_blueprint(views, url_prefix='/')
-    app.register_blueprint(auth, url_prefix='/auth')
+    app.register_blueprint(user, url_prefix='/konto')
 
     return app
