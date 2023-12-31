@@ -1,5 +1,0 @@
-for i in {1..20}; do
-	cp "$i.jpg" "$((i+20)).jpg"
-done
-
-echo "done"

@@ -7,7 +7,6 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-8">
-            <h2>Koszyk</h2>
             <table class="table">
                 <thead>
                 <tr>
@@ -22,13 +21,13 @@
                 <tbody>
                     {%for row in info%}
                 <tr>
-                    <th scope="row">1</th>
-                    <td>{{row[12]}}</td>
-                    <td>{{row[14]}}</td>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{row[13]}}</td>
+                    <td>{{row[15]}}</td>
                     <td>
-                        {{row[4]}}
+                        {{row[2]}}
                     </td>
-                    <td>{{row[14]}}</td>
+                    <td>{{row[19]}}</td>
                     <td>
                         <a href="{{url_for('user.remove_item_from_card',id=row[3])}}"><div class="btn btn-sm btn-danger">Usuń</div></a>
                     </td>
@@ -46,7 +45,7 @@
                     Razem:   {% if total != None %} {{total}} {%endif%}
                 </li>
             </ul>
-            <button class="btn btn-success btn-block mt-3">Przejdź do płatności</button>
+            <a href="{{url_for('user.przetwarzanie_zamowienia')}}"><button class="btn btn-success btn-block mt-3">Przejdź do płatności</button></a>
         </div>
     </div>
 </div>

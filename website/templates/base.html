@@ -19,6 +19,32 @@
                 object-fit: cover;
                 filter: blur(5px);
             }
+            .text-container {
+                padding: 20px;
+                background-color: #f8f9fa;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            .text-container h2 {
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            .text-container p {
+                color: #666;
+                line-height: 1.6;
+            }
+            .star {
+                color: darkorange;
+                cursor: pointer;
+                font-size: 30px;
+            }
+            .star.selected {
+                color: gold;
+            }
+
+            
         </style>
         {% block csss %}{% endblock %}
     </head>
@@ -37,18 +63,22 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url_for('views.books') }}">Produkty</a></li>
                                 <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Bestsellery</a></li>
-                                <li><a class="dropdown-item" href="#!">Nowe</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('views.bestsellery') }}">Bestsellery</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('views.naj_oceniane') }}">Nawyżej oceniane</a></li>
                             </ul>
                         </li>
                     </ul>
+                    <form method="post" class="d-flex" style="margin-right: 10px;" action="{{url_for('views.wyszukiwanie')}}">
+                        <input class="form-control me-2" type="search" placeholder="szukaj"  id="szukaj" name="szukaj">
+                        <button class="btn btn-outline-success" type="submit">Szukaj</button>
+                    </form>
                     <form class="d-flex">
                         {%if session['user']%}
                         <a href="{{url_for('user.koszyk')}}">
                         <div class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
                             Koszyk
-                            <span class="badge bg-dark text-white ms-1 rounded-pill" type="submit" >0</span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" type="submit" ></span>
                         </div>
                         </a>
                         <a href="{{ url_for('user.profil')}}" style="text-decoration: None;color:black">
@@ -84,12 +114,8 @@
             </div>
         </nav>
         <!-- Header-->
-        <header class="bg-dark py-5" style="background-image: url(https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg)">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Książki</h1>
-                    <p class="lead fw-normal text-white-50 mb-0"></p>
-                </div>
+        <header class="bg-dark" style="padding-bottom: 0;padding-top: 0;">
+            <!-- <img src="https://i.imgur.com/nVy9qD8.png" onerror="this.style.display='none'" style="width:100%;margin:0;padding:0;max-height: 400px;"> -->
             </div>
         </header>
         <!-- Section-->
@@ -97,39 +123,44 @@
             <div class="container px-4 px-lg-5 mt-5" style="min-height: 800px;"> 
                 <!-- <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"> -->
                     {%block content%}
-                    <div class="row">
+                    <div class="container mt-4">
+                        <div class="row">
+                    
+                            <!-- Duże zdjęcie po lewej stronie -->
+                            <div class="col-md-6">
+                                <img class="img-fluid rounded" src="https://cdn.biznesfinder.pl/f-34429-jak-dziala-ksiegarnia-internetowa.jpg" alt="Księgarnia">
+                            </div>
+                    
+                            <!-- Treść po prawej stronie -->
+                            <div class="col-md-6">
+                                <div class="text-container">
+                                    <h2>Szanowni Miłośnicy Piękna Literatury,</h2>
+                                    <!-- Treść opisująca książkę... -->
+                                    <p>Szanowni Miłośnicy Piękna Literatury,
 
-                        <!-- Duże zdjęcie po lewej stronie -->
-                        <div class="col-md-6">
-                            <img src="https://cdn.biznesfinder.pl/f-34429-jak-dziala-ksiegarnia-internetowa.jpg" style="max-width: 100%; max-height:100%;">
+                                        Mamy przyjemność przedstawić Wam najnowszą perełkę literacką, której nie możecie przegapić! "Migoczące Marzenia" autorstwa utalentowanej pisarki Anna Nowak to podróż pełna emocji, wrażeń i inspiracji, która przeniesie Was do niezwykłego świata, gdzie każda strona kryje w sobie tajemnicę, a każde zdanie wciągnie Was głębiej w wir historii.
+                                        
+                                        Dlaczego warto zainwestować w tę wyjątkową książkę?
+                                        
+                                        Poruszająca Fabuła: "Migoczące Marzenia" to opowieść o miłości, determinacji i sile ludzkiego ducha. Anna Nowak mistrzowsko snuje wątki, łącząc je w pełną napięcia historię, która zatrzyma Wasze serce i jednocześnie wzbudzi fale emocji.
+                                        
+                                        Wyjątkowe Postaci: Autorka stworzyła niezapomniane postaci, które stają się bliskie czytelnikom. Ich rozwój, tajemnice i relacje poruszają tematy uniwersalne, sprawiając, że z łatwością odnajdziecie się w ich świecie.
+                                        
+                                        Mądra Sztuka Opowiadania: Anna Nowak nie tylko bawi się słowem, ale również posługuje się mądrością życiową, przemyśleniami i refleksjami, które sprawiają, że lektura nabiera głębszego znaczenia. To więcej niż zwykła książka - to intelektualna uczta.
+                                        
+                                        Piękne Wydanie: "Migoczące Marzenia" to nie tylko treść, ale również forma. Książka została wydana z najwyższą dbałością o detale, a jej okładka stanowi prawdziwe dzieło sztuki, które ozdobi Waszą biblioteczkę.
+                                        
+                                        Recenzje czytelników: Społeczność czytelników już teraz gorąco poleca tę książkę! Opinie pełne entuzjazmu potwierdzają, że "Migoczące Marzenia" to lektura, która zostaje w pamięci na długo po jej przeczytaniu.
+                                        
+                                        Zapraszamy Was do zakupu "Migoczących Marzeń" w naszej internetowej księgarni. To nie tylko inwestycja w fascynującą lekturę, ale także w chwilę relaksu, rozrywki i rozwijania swoich literackich zainteresowań.
+                                        
+                                        Nie czekajcie, odkryjcie nowy świat literatury razem z "Migoczącymi Marzeniami" już dziś!</p>
+                                    <a class="btn btn-primary" href="#link-do-ksiegarni">Kup Teraz</a>
+                                </div>
+                            </div>
+                    
                         </div>
-            
-                        <!-- Treść po prawej stronie -->
-                        <div class="col-md-6">
-                            <p>Szanowni Miłośnicy Piękna Literatury,
-
-                                Mamy przyjemność przedstawić Wam najnowszą perełkę literacką, której nie możecie przegapić! "Migoczące Marzenia" autorstwa utalentowanej pisarki Anna Nowak to podróż pełna emocji, wrażeń i inspiracji, która przeniesie Was do niezwykłego świata, gdzie każda strona kryje w sobie tajemnicę, a każde zdanie wciągnie Was głębiej w wir historii.
-                                
-                                Dlaczego warto zainwestować w tę wyjątkową książkę?
-                                
-                                Poruszająca Fabuła: "Migoczące Marzenia" to opowieść o miłości, determinacji i sile ludzkiego ducha. Anna Nowak mistrzowsko snuje wątki, łącząc je w pełną napięcia historię, która zatrzyma Wasze serce i jednocześnie wzbudzi fale emocji.
-                                
-                                Wyjątkowe Postaci: Autorka stworzyła niezapomniane postaci, które stają się bliskie czytelnikom. Ich rozwój, tajemnice i relacje poruszają tematy uniwersalne, sprawiając, że z łatwością odnajdziecie się w ich świecie.
-                                
-                                Mądra Sztuka Opowiadania: Anna Nowak nie tylko bawi się słowem, ale również posługuje się mądrością życiową, przemyśleniami i refleksjami, które sprawiają, że lektura nabiera głębszego znaczenia. To więcej niż zwykła książka - to intelektualna uczta.
-                                
-                                Piękne Wydanie: "Migoczące Marzenia" to nie tylko treść, ale również forma. Książka została wydana z najwyższą dbałością o detale, a jej okładka stanowi prawdziwe dzieło sztuki, które ozdobi Waszą biblioteczkę.
-                                
-                                Recenzje czytelników: Społeczność czytelników już teraz gorąco poleca tę książkę! Opinie pełne entuzjazmu potwierdzają, że "Migoczące Marzenia" to lektura, która zostaje w pamięci na długo po jej przeczytaniu.
-                                
-                                Zapraszamy Was do zakupu "Migoczących Marzeń" w naszej internetowej księgarni. To nie tylko inwestycja w fascynującą lekturę, ale także w chwilę relaksu, rozrywki i rozwijania swoich literackich zainteresowań.
-                                
-                                Nie czekajcie, odkryjcie nowy świat literatury razem z "Migoczącymi Marzeniami" już dziś!</p>
-                            <!-- Dodaj więcej treści lub sekcji po prawej stronie tutaj -->
-                        </div>
-            
                     </div>
-                    <br><br><br><br><br>
                     {%endblock%}
                 <!-- </div> -->
                 

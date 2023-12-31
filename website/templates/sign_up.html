@@ -1,6 +1,10 @@
 {% extends "base.html" %} 
 {% block title %}Rejestracja{% endblock %} 
 {% block content %}
+
+{%if message%}
+<label style="color:green">{{message}}</label>
+{%endif%}
 <form method="POST">
     <h3 align="center">Rejestracja</h3>
     <div class="form-group">
@@ -28,8 +32,8 @@
         <input
           type="text"
           class="form-control"
-          id="Nazwisko"
-          name="Nazwisko"
+          id="nazwisko"
+          name="nazwisko"
           placeholder="Wprowadź Nazwisko"
         />
       </div>

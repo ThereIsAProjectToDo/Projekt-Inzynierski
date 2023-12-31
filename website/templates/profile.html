@@ -3,47 +3,50 @@
 {% block content %}
 
 <div class="container mt-5">
-  <div class="card">
-      <div class="card-header">
-          <h2>Informacje o Koncie</h2>
+  <div class="row">
+    <!-- Lewa kolumna z informacjami o koncie -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+            <h2>Informacje o Koncie</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Email: {{info[0][1]}}</strong></p>
+            <p class="card-text"><strong>Status Konta: {{info[0][4]}}</strong> </p>
+            <p class="card-text"><strong>Data Utworzenia: {{info[0][3]}}</strong> </p>
+            <p class="card-text"><strong>Imię: {{info[0][7]}}</strong> </p>
+            <p class="card-text"><strong>Nazwisko: {{info[0][8]}}</strong> </p>
+            <p class="card-text"><strong>Telefon: {{info[0][9]}}</strong> </p>
+            <p class="card-text"><strong>Adres: {{info[0][10]}}</strong> </p>
+        </div>
       </div>
-      <div class="card-body">
-          <p class="card-text"><strong>Email: {{info[0][1]}}  </strong></p>
-          <p class="card-text"><strong>Status Konta:   {{info[0][4]}}</strong> </p>
-          <p class="card-text"><strong>Data Utworzenia:  {{info[0][3]}}</strong> </p>
-          <p class="card-text"><strong>Imię: {{info[0][7]}}</strong> </p>
-          <p class="card-text"><strong>Nazwisko: {{info[0][8]}}</strong> </p>
-          <p class="card-text"><strong>Telefon: {{info[0][9]}} </strong> </p>
-          <p class="card-text"><strong>Adres: {{info[0][10]}}</strong> </p>
+    </div>
+
+    <!-- Prawa kolumna z menu -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <h3>Menu Profilu</h3>
+        </div>
+        <div class="card-body">
+          <ul class="nav flex-column">
+            <li class="card-header">
+              <a class="nav-link active" href="{{url_for('user.profil_edycja')}}">Edycja profilu</a>
+            </li>
+            <li class="card-header">
+                <a class="nav-link active" href="{{url_for('user.historia_zamowien')}}">Historia Zamówień</a>
+            </li>
+            <li class="card-header">
+              <a class="nav-link" href="#">Link 3</a>
+            </li>
+            <li class="card-header">
+              <a class="nav-link" href="#">Link 4</a>
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
   </div>
 </div>
 
-
-
-
-
-<div class="container mt-5">
-  <div class="card">
-      <div class="card-header">
-          <h2>Edycja Informacji o Koncie</h2>
-      </div>
-      <div class="card-body">
-          <form method="post">
-              <div class="form-group">
-                  <label for="username">Username:</label>
-                  <input type="text" id="username" name="username" value="" class="form-control" required>
-              </div>
-              <div class="form-group">
-                  <label for="email">Email:</label>
-                  <input type="email" id="email" name="email" value="" class="form-control" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-          </form>
-      </div>
-  </div>
-</div>
-  
-
-
-{%endblock%}
+{% endblock %}

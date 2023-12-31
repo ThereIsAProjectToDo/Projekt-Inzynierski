@@ -50,7 +50,8 @@ CREATE TABLE opinie(
 CREATE TABLE koszyk(
     ksiazka_id INTEGER REFERENCES ksiazki(ksiazka_id) ON DELETE CASCADE,
     klient_id INTEGER REFERENCES klienci(klient_id) ON DELETE CASCADE,
-    ilosc INTEGER NOT NULL
+    ilosc INTEGER NOT NULL,
+    data_dodania TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 
 

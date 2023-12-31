@@ -13,15 +13,16 @@
             </div>
             <p class="lead">{{info[0][3]}}</p>
             <div class="d-flex">
-                <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                <form method="post" action="{{ url_for('views.item') }}">
-                    <input class="btn btn-outline-dark flex-shrink-0" type="submit" name="dodaj_do_koszyka" value="Dodaj do koszyka">
+                <form method="post" action="{{ url_for('views.dodaj_produkt') }}">
+                    <input class="form-control text-center me-3" name="ilosc" id="ilosc" type="num" value="1" style="max-width: 3rem" />
+                    <button class="btn btn-outline-dark flex-shrink-0" type="submit" name="dodaj_do_koszyka" value="Dodaj">Dodaj do koszyka</button>
                     <!-- <input class="btn btn-outline-dark flex-shrink-0" type="submit" value="Dodaj do koszyka" name="dodaj_do_koszyka"> -->
             </form>
             </div>
         </div>
     </div>
 </div>
+
 {%if comments%}
 <div class="col mb-5" style="text-align: center;margin-top: 50px;"><h1>Opinie</h1></div>
 {%endif%}
@@ -62,20 +63,76 @@
         <div class="card-body p-4">
             <div class="text-center">
                 <h2>Dodaj Komentarz</h2>
-                    <form>
+                    <form method="post" action="{{ url_for('views.dodaj_komentarz') }}">
                         <div class="form-group">
                         <label for="komentarz">Treść Komentarza:</label>
-                        <textarea class="form-control" id="komentarz" rows="4" placeholder="Wprowadź swój komentarz"></textarea>
+                        <textarea class="form-control" name="komentarz" id="komentarz" rows="4" placeholder="Wprowadź swój komentarz"></textarea>
                         </div>
                         <div class="form-group">
                         <label for="ocena">Ocena (od 1 do 5):</label>
-                        <input type="number" class="form-control" id="ocena" min="1" max="5" placeholder="Wprowadź ocenę">
+                        <!-- <div class="rating">
+                            <span class="star" data-value="1">&#9733;</span>
+                            <span class="star" data-value="2">&#9733;</span>
+                            <span class="star" data-value="3">&#9733;</span>
+                            <span class="star" data-value="4">&#9733;</span>
+                            <span class="star" data-value="5">&#9733;</span>
+                        </div> -->
+                        <input type="number" class="form-control" name="ocena" id="ocena" min="1" max="5" placeholder="Wprowadź ocenę">
                         </div>
-                        <button type="submit" class="btn btn-primary">Dodaj Komentarz</button>
+                        <button type="submit" class="btn btn-primary" value="komentarz" id="dodaj_komentarz">Dodaj Komentarz</button>
+                        <br>
+                        {% for mes in get_flashed_messages() %}
+                        <div class="alert alert-warning">
+                        {{ mes }}
+                        </div>
+                        {% endfor %}
                     </form>
             </div>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        $('.star').click(function(){
+            var rating = $(this).data('value');
+
+            // Zaznacz wszystkie gwiazdki od wybranej i w lewo
+            $('.star').each(function(){
+            if($(this).data('value') <= rating){
+                $(this).addClass('selected');
+            } else {
+                $(this).removeClass('selected');
+            }
+            });
+
+            console.log('Wybrana ocena: ' + rating);
+            // Tutaj możesz przekazać wartość oceny gdzie indziej
+        });
+        $('#submitRating').click(function(){
+  var selectedRating = $('.star.selected').last().data('value');
+  var additionalText = $('#additionalText').val();
+  if(selectedRating > 0){
+    $.ajax({
+      url: '/dodaj_komentarz',
+      type: 'POST',
+      contentType: 'application/json',
+      dataType: 'json', // Określenie, że oczekujesz odpowiedzi w formacie JSON
+      data: JSON.stringify({
+        rating: selectedRating, 
+        text: additionalText
+      }),
+      success: function(response){
+        console.log(response);
+      },
+      error: function(error){
+        console.log(error);
+      }
+    });
+  }
+});
+
+        });
+    </script>
 {%endif%}
 {% endblock %}
