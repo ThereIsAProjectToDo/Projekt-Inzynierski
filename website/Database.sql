@@ -2,7 +2,7 @@ CREATE TABLE konta(
     konto_id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     haslo VARCHAR(255) NOT NULL,
-    data_utworzenia TIMESTAMP NOT NULL,
+    data_utworzenia TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
     status_konta VARCHAR(50)
 );
 CREATE TABLE klienci(
@@ -45,9 +45,11 @@ CREATE TABLE opinie(
     klient_id INTEGER REFERENCES klienci(klient_id) ON DELETE CASCADE,
     ksiazka_id INTEGER REFERENCES ksiazka(ksiazka_id) ON DELETE CASCADE,
     ocena INTEGER NOT NULL,
-    ocena_tekst TEXT
+    ocena_tekst TEXT,
+    data_dodania TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP
 )
 CREATE TABLE koszyk(
+    element_id SERIAL PRIMARY KEY,
     ksiazka_id INTEGER REFERENCES ksiazki(ksiazka_id) ON DELETE CASCADE,
     klient_id INTEGER REFERENCES klienci(klient_id) ON DELETE CASCADE,
     ilosc INTEGER NOT NULL,

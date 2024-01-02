@@ -16,10 +16,10 @@ views = Blueprint('views', __name__)
 #     'port': '5432'
 # }
 db_params = {
-    'dbname': 'ksiegarnia',
+    'dbname': 'postgres',
     'user': 'postgres',
     'password': 'postgres',
-    'host': 'localhost',
+    'host': 'ksiengarnia-db.cshzuj1alait.eu-north-1.rds.amazonaws.com',
     'port': '5432'
 }
 # Shopping_list = list()
@@ -261,6 +261,7 @@ def dodaj_komentarz():
 def dodaj_produkt():
     print("FUNKCJA DODAJ PROUKT")
     book = session["item"]
+    print(book)
     if "user" in session:
         user_id = session["user"]
         data = request.form

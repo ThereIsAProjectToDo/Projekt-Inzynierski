@@ -3,10 +3,10 @@ import psycopg2
 from datetime import datetime
 user = Blueprint('user', __name__)
 db_params = {
-    'dbname': 'ksiegarnia',
+    'dbname': 'postgres',
     'user': 'postgres',
     'password': 'postgres',
-    'host': 'localhost',
+    'host': 'ksiengarnia-db.cshzuj1alait.eu-north-1.rds.amazonaws.com',
     'port': '5432'
 }
 @user.route('/koszyk')
@@ -151,7 +151,7 @@ def przetwarzanie_zamowienia():
                 zamowienie_id = cursor.fetchone()[0]
                 for row in info:
                       query = "INSERT INTO zamowienia_przedmioty (ksiazka_id,zamowienie_id,ilosc,cena) VALUES (%s,%s,%s,%s)" 
-                      cursor.execute(query,(row[0],zamowienie_id,row[3],row[15]))
+                      cursor.execute(query,(row[1],zamowienie_id,row[3],row[15]))
                 query = "DELETE FROM koszyk WHERE klient_id = %s"
                 cursor.execute(query,str(user_id))
 
@@ -160,7 +160,11 @@ def przetwarzanie_zamowienia():
 
 @user.route('/historia_zamowien',methods=['GET','POST'])
 def historia_zamowien():
-      
+    with psycopg2.connect(**db_params) as connection:
+            with connection.cursor() as cursor:
+                query = "SELECT * FROM zamowienia_przedmioty as zp INNER JOIN ksiazki as ks ON zp.ksiazka_id = ks.ksiazka_id INNER JOIN zamowienia as za ON za.zamowienie_id = zp.zamowienie_id WHERE za.klient_id = %s ORDER BY za.zamowienie_id"
+                cursor.execute(query, (str(session['user'])))
+                data = cursor.fetchall()
 
 
-      return render_template('history.html')
+    return render_template('history.html')
